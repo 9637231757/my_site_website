@@ -1,0 +1,11 @@
+# Ignore virtual environment
+myenv/
+
+# Ignore Python bytecode
+*.pyc
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore system files (macOS-specific)
+*.DS_Store
