@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock %}  
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog/all-posts.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <section id="Welcome">
+        <header>
+            <img src="{% static 'blog/images/mountains.jpg' %}" alt="Rohan Gaidhani - Author of this Blog"> 
+            <h2>Rohan's Blog</h2>
+        </header>
+        <p>Hi, I am Rohan and I love to blog about tech and the world!</p>
+    </section>
+
+    <section id="latest-posts">
+        <h2>My Latest Thoughts</h2>
+
+        <ul>
+            {% include 'includes/post.html' %}
+        </ul>
+
+    </section>    
+
+    <section id="about">
+        <h2>What I Do</h2>
+        <p>
+            I love programming, I love to help others and I enjoy exploring new technologies in general!
+        </p>
+        <p>
+            My goal is to keep on growing as a developer - and if I could help you do the same, I'd be very happy!
+        </p>
+    </section>
+
+    <h1>Welcome to my blog</h1>
+{% endblock %}
+
+
