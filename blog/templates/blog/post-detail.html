@@ -13,7 +13,7 @@
     <section id="summary">
         <h2>Trekking in Maharashtra</h2>
         <article> 
-            <img src="{% static "blog/images/mountains.jpg" %}" alt="Mountain-Hiking">
+            <img src="{% static "blog/images/"|add:post.image %}" alt="{{post.title}}">
             <address>By Rohan Gaidhani</address>
             <div>
                 Last updated on <time>July 10th</time>
