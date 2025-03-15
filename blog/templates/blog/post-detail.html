@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    This post title 
+  {{ post.title }} 
 {% endblock %}
 
 {% block css_files %}
@@ -11,30 +11,17 @@
 
 {% block content %}
     <section id="summary">
-        <h2>Trekking in Maharashtra</h2>
+        <h2>{{post.title}}</h2>
         <article> 
             <img src="{% static "blog/images/"|add:post.image %}" alt="{{post.title}}">
-            <address>By Rohan Gaidhani</address>
+            <address>By{{ post.author }}</address>
             <div>
-                Last updated on <time>July 10th</time>
+                Last updated on <time>{{ post.date|date:"d M Y" }}</time>
             </div>
         </article> <!-- Added closing tag for article -->
     </section>  
 
     <main>
-        <p> Trekking in Maharashtra: A Journey Through the Western Ghats
-            Maharashtra, a state located on the western coast of India, is blessed with a diverse landscape that offers a perfect escape for nature enthusiasts, adventure seekers, and trekkers alike. Known for its rugged hills, lush green valleys, forts, waterfalls, and serene lakes, Maharashtra boasts some of the most captivating trekking destinations in India. Whether you're a seasoned trekker or a beginner, the state offers trails that cater to all levels of experience.
-        </p>
-        
-        <p> Rich History and Heritage: Maharashtra is home to several historic forts, many of which were built by the Marathas. These forts stand atop rugged mountains and offer trekkers a chance to not only enjoy nature’s beauty but also learn about the rich cultural and historical significance of the region.
-
-        Varied Terrain: From the Sahyadri hills in the western part of the state to the deep forests of the central region, Maharashtra’s varied geography makes it ideal for trekking. You can trek through dense forests, walk along ancient stone paths, cross rivers, and explore caves, all in a single journey.    
-        </p>
-
-        <p> Peace and Serenity: Unlike the more crowded trekking destinations, Maharashtra offers trekkers a chance to enjoy solitude and peace in the lap of nature. Most trekking spots in Maharashtra are relatively less commercialized, ensuring that you can immerse yourself in the natural beauty without the distractions of large crowds.
-
-        Accessibility: Maharashtra’s well-connected roads, railways, and proximity to major cities like Mumbai, Pune, and Nashik make it easier for trekkers to reach the starting points of the trails. Whether you’re in Mumbai or Pune, you can easily travel to popular trekking destinations in just a few hours.
-            
-            </p>
+       {{post.content|linebreaks}}
     </main>
 {% endblock %}

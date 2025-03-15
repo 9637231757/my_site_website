@@ -24,7 +24,7 @@ all_posts = [
     {
         "slug": "programming-is-fun",
         "image": "coding.jpg",
-        "author": "Maximilian",
+        "author": "Rohan Gaidhani",
         "date": date(2025, 3, 10),
         "title": "Programming Is Great!",
         "excerpt": "Did you ever spend hours searching that one error in your code? Yep - that's what happened to me yesterday...",
@@ -46,7 +46,7 @@ all_posts = [
     {
         "slug": "into-the-woods",
         "image": "woods.jpg",
-        "author": "Maximilian",
+        "author": "Rohan Gaidhani",
         "date": date(2025, 8, 5),
         "title": "Nature At Its Best",
         "excerpt": "Nature is amazing! The amount of inspiration I get when walking in nature is incredible!",
@@ -87,6 +87,9 @@ def posts(request):
 
 
 def post_detail(request, slug):
-    return render(request, "blog/post_detail.html")
+    identified_post = next(post for post in all_posts if post['slug'] == slug)
+    return render(request, "blog/post_detail.html",{
+        "post":"identified_post"
+    })
     
     
