@@ -35,7 +35,7 @@ def post_detail(request, slug):
     
 
 # views.py
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post  # Use 'Post' instead of 'post'
 
 def starting_page(request):
@@ -51,7 +51,7 @@ def posts(request):
     })
 
 def post_detail(request, slug):
-    identified_post = Post.objects.get(slug=slug)
-    return render(request, "blog/post_detail.html", {
+    identified_post = get_object_or_404(Post, slug=slug)
+    return render(request, "blog/post-detail.html", {
         "post": identified_post  # Fixed the string literal issue too
     })
