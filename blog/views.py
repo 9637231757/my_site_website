@@ -17,5 +17,6 @@ def posts(request):
 def post_detail(request, slug):
     identified_post = get_object_or_404(Post, slug=slug)
     return render(request, "blog/post-detail.html", {
-        "post": identified_post  # Fixed the string literal issue too
+        "post": identified_post,  # Fixed the string literal issue too
+        "post_tags": identified_post.tags.all()
     })
