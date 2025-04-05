@@ -53,8 +53,8 @@ class Post(models.Model):  # Capitalized
     title = models.CharField(max_length=150)
     excerpt = models.CharField(max_length=200)
     # Consider using ImageField if storing actual images:
-    # image = models.ImageField(upload_to='post_images/', null=True, blank=True)
-    image = models.ImageField(upload_to="posts",null=True)
+    image = models.ImageField(upload_to='uploads/posts/', null=True, blank=True)
+    #image = models.ImageField(upload_to="posts",null=True)
     date = models.DateField(auto_now_add=True)  # Changed to auto_now_add
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
