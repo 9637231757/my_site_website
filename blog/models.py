@@ -28,7 +28,7 @@ class post(models.Model):
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, related_name="posts",null=True, blank=True)  """
-    
+# updated models.py file     
 from django.db import models
 from django.core.validators import MinLengthValidator
 
@@ -54,7 +54,7 @@ class Post(models.Model):  # Capitalized
     excerpt = models.CharField(max_length=200)
     # Consider using ImageField if storing actual images:
     # image = models.ImageField(upload_to='post_images/', null=True, blank=True)
-    image_name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="posts")
     date = models.DateField(auto_now_add=True)  # Changed to auto_now_add
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
