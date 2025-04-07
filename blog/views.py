@@ -98,8 +98,9 @@ class SinglePostsView(View):
         return render(request, "blog/post-detail.html", context)
     
     def post(self, request, slug):
-        post = get_object_or_404(Post, slug=slug)  # Fetch post first
+        #post = get_object_or_404(Post, slug=slug)  # Fetch post first
         comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
         
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)  
@@ -108,7 +109,6 @@ class SinglePostsView(View):
             
             return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
         
-        # If form is invalid, re-render the page with the form errors
         context = {
             "post": post,
             "post_tags": post.tags.all(),
