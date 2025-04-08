@@ -93,7 +93,9 @@ class SinglePostsView(View):
         context = {
             "post": post,
             "post_tags": post.tags.all(),
-            "comment_form": CommentForm()
+            "comment_form": CommentForm(),
+            "comments": post.comments.all()
+            
         }
         return render(request, "blog/post-detail.html", context)
     
@@ -109,9 +111,14 @@ class SinglePostsView(View):
             
             return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
         
+        else:
+            print(f"Form validation failed: {comment_form.errors}")
+        
         context = {
             "post": post,
             "post_tags": post.tags.all(),
-            "comment_form": comment_form  
+            "comment_form": comment_form,
+            "comments": post.comments.all()
+  
         }
         return render(request, "blog/post-detail.html", context)    
