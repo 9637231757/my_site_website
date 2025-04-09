@@ -125,12 +125,12 @@ class SinglePostsView(View):
 
 class ReadLaterView(View):
     
-    def post(self, request):
+    def get(self, request):
         stored_posts = request.session.get("stored_posts")
         
         context = {}
             
-        if stored_posts is None or len("stored_posts") == 0:
+        if stored_posts is None or len(stored_posts) == 0:
              context["posts"] = []
              context["has_posts"] = False
         else:
@@ -138,7 +138,7 @@ class ReadLaterView(View):
             context["posts"] = posts 
             context["has_posts"] = True 
         
-        return render(request, "blog/sorted-posts.html", context)    
+        return render(request, "blog/stored-posts.html", context)    
                  
     
     def post(self, request):
@@ -153,8 +153,8 @@ class ReadLaterView(View):
             stored_posts.append(post_id)
             request.session["stored_posts"] = stored_posts
             
-        return HttpResponseRedirect("/")    
+        return HttpResponseRedirect("/blog/")    
             
             
-        stored_posts.append(int(request.POST["post_id"]))     
+        #stored_posts.append(int(request.POST["post_id"]))     
            

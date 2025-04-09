@@ -25,8 +25,13 @@
             {% endfor %}
         </div>
         <div id="read-later">
-            <button>Read Later</button>
-        </div>
+            <form action="{% url 'read-later' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{ post.id }}" name="post_id">
+                <button type="submit">Read Later</button>
+            </form>
+        </div>    
+
         <article> 
             <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
             <address>By <a href="er.rohangaidhani@gmail.com">{{ post.author }}</a></address>
