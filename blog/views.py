@@ -1,5 +1,5 @@
-# views.py
-# views file updated
+# views.py file code updated
+
 """from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Post  # Use 'Post' instead of 'post'
