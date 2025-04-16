@@ -1,4 +1,4 @@
-# updated models.py file     
+# updated models.py    
 from django.db import models
 from django.core.validators import MinLengthValidator
 
@@ -34,14 +34,15 @@ class Post(models.Model):  # Capitalized
         null=True, 
         blank=True
     )
-    tags = models.ManyToManyField(Tag, blank=True)  # Added relationship
+    tags = models.ManyToManyField(Tag, blank=True) 
     
     def __str__(self):
         return f"{self.title} ({self.date})"
 
     class Meta:
-        ordering = ['-date']  # Default ordering by date descending    
-
+        ordering = ['-date']  # Default ordering by date descending   
+        
+      
 class Comment(models.Model):
     user_name = models.CharField(max_length=120)
     user_email = models.EmailField()
