@@ -1,60 +1,3 @@
-# views.py file code updated
-
-"""from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from .models import Post  # Use 'Post' instead of 'post'
-from django.views.generic import ListView
-from .forms import CommentForm
-from django.views import View
-
-
-class StartingPageView(ListView):
-    template_name = "blog/index.html"
-    model = Post
-    ordering = ["-date"]
-    context_object_name = "posts"
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        data = queryset[:3]
-        return data
-    
-    
-class AllPostsView(ListView):
-    template_name = "blog/all-posts.html"
-    model = Post
-    ordering = ["-date"]
-    context_object_name = "all_posts"
-        
-        
-class SinglePostsView(View):
-    template_name = "blog/post-detail.html"
-    model = Post
-    
-    def get(self, request, slug):
-        post = Post.objects.get(slug=slug)
-        context = {
-            "post":post,
-            "post_tags": post.tags.all(),
-            "comment_form": CommentForm()
-        }
-        return render(request,"blog/post-detail.html", context)
-    
-    def post(self, request, slug):
-        comment_form = CommentForm(request.POST)
-        if  comment_form.is_valid():
-            comment_form.save()
-            return HttpResponseRedirect(reverse("post-detail-page",args=[slug]))
-             
-            post = Post.objects.get(slug=slug)
-            context = {
-            "post":post,
-            "post_tags": post.tags.all(),
-            "comment_form": comment_form
-        }
-        return render(request,"blog/post-detail.html", context)"""
-    
-    
 # views.py
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -85,16 +28,26 @@ class AllPostsView(ListView):
         
 
 class SinglePostsView(View):
-    template_name = "blog/post-detail.html"
-    model = Post  
+    
+    def is_stored_post(self, request, post_id):
+        stored_posts = request.session.get("stored_posts")
+        if stored_posts is not None:
+            is_saved_for_later = post_id in stored_posts
+        else:
+            is_saved_for_later = False 
+            
+        return is_saved_for_later    
+          
     
     def get(self, request, slug):  
-        post = get_object_or_404(Post, slug=slug)  
+        post = get_object_or_404(Post, slug=slug) 
+           
         context = {
             "post": post,
             "post_tags": post.tags.all(),
             "comment_form": CommentForm(),
-            "comments": post.comments.all()
+            "comments": post.comments.all(),
+            "saved_for_later": self.is_stored_post(request, post.id)
             
         }
         return render(request, "blog/post-detail.html", context)
@@ -118,7 +71,9 @@ class SinglePostsView(View):
             "post": post,
             "post_tags": post.tags.all(),
             "comment_form": comment_form,
-            "comments": post.comments.all()
+            "comments": post.comments.all(),
+            "saved_for_later": self.is_stored_post(request, post.id)
+
   
         }
         return render(request, "blog/post-detail.html", context)    
@@ -150,11 +105,12 @@ class ReadLaterView(View):
         post_id = int(request.POST["post_id"])
         
         if post_id not in stored_posts:
-            stored_posts.append(post_id)
-            request.session["stored_posts"] = stored_posts
-            
+            stored_posts.append(post_id) 
+        else:
+            stored_posts.remove(post_id)   
+             
+        request.session["stored_posts"] = stored_posts      
         return HttpResponseRedirect("/blog/")    
             
             
-        #stored_posts.append(int(request.POST["post_id"]))     
            
